@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SkillStack Quest</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background: linear-gradient(to right, #141e30, #243b55);
+    color: white;
+    text-align: center;
+}
+
+/* HEADER */
+header {
+    padding: 20px;
+    font-size: 28px;
+    background: #000;
+}
+
+/* GAME BOX */
+.container {
+    margin: 40px auto;
+    width: 80%;
+}
+
+.score-box {
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+/* COURSE CARDS */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: #1f2a40;
+    padding: 20px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    background: #2c3e50;
+}
+
+.correct {
+    background: green !important;
+}
+
+.wrong {
+    background: red !important;
+}
+
+/* BUTTON */
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: none;
+    background: #00b4d8;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0077b6;
+}
+</style>
+
+</head>
+<body>
+
+<header>🎮 SkillStack Quest</header>
+
+<div class="container">
+
+    <div class="score-box">
+        Score: <span id="score">0</span>
+    </div>
+
+    <h2>Select the Programming Course 👇</h2>
+
+    <div class="grid" id="gameGrid">
+        <div class="card" onclick="checkAnswer(this, true)">Computer Science</div>
+        <div class="card" onclick="checkAnswer(this, false)">Civil Engineering</div>
+        <div class="card" onclick="checkAnswer(this, false)">Mechanical</div>
+        <div class="card" onclick="checkAnswer(this, false)">Biology</div>
+    </div>
+
+    <button onclick="resetGame()">Restart Game</button>
+
+</div>
+
+<script>
+let score = 0;
+
+function checkAnswer(card, isCorrect) {
+    if(card.classList.contains("correct") || card.classList.contains("wrong")) return;
+
+    if(isCorrect) {
+        card.classList.add("correct");
+        score++;
+    } else {
+        card.classList.add("wrong");
+        score--;
+    }
+
+    document.getElementById("score").innerText = score;
+}
+
+function resetGame() {
+    score = 0;
+    document.getElementById("score").innerText = score;
+
+    let cards = document.querySelectorAll(".card");
+    cards.forEach(card => {
+        card.classList.remove("correct", "wrong");
+    });
+}
+</script>
+
+</body>
+</html>
